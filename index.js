@@ -156,7 +156,7 @@ app.post("/registationForTeachers", async (req, res) => {
         email: body.email,
         password: encrypted_Password,
         class: body.class,
-        stream:body.stream
+        stream: body.stream
 
     }
     console.log(teachers);
@@ -226,10 +226,27 @@ app.post("/loginTeacher", (req, res) => {
 
 
 
-connection.query("SELECT * FROM students WHERE id = '1'", function (err, result) {
-    if (err) throw err;
-    console.log(result);
-  });
+// connection.query("SELECT * FROM teachers WHERE id = '1'", function (err, result) {
+//     if (err) throw err;
+//     console.log(result);
+//   });
+
+
+
+app.get("/fatchData/:id", (req, res) => {
+    let id = req.params.id;
+    let sql = `select * from students where id=` + id;
+    connection.query(sql, (err, result, field) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(result)
+            res.json({
+                result
+            })
+        }
+    })
+})
 
 
 app.listen(8000, () => {
