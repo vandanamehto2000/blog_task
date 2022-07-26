@@ -249,6 +249,18 @@ app.get("/fatchData/:id", (req, res) => {
 })
 
 
+app.get("/allData", (req, res) => {
+    connection.query("select students.id, students.name, students.email, students.password, students.class, students.stream, teachers.teacherName from students join teachers on students.stream=teachers.stream;", (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        res.json({
+            result
+        })
+    });
+
+})
+
+
 app.listen(8000, () => {
     console.log("server has strated on port 8000");
 })
